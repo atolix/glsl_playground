@@ -2,7 +2,7 @@
   "name": "GLSL Playground",
   "short_name": "GLSL Play",
   "description": "Interactive WebGL shader playground",
-  "start_url": "/",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
