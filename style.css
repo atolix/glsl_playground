@@ -18,6 +18,16 @@ body {
   height: 80vh;
 }
 
+.editor-title {
+  color: #fff;
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: normal;
+  background-color: rgba(40, 40, 40, 0.7);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
 .buttons {
   display: flex;
   gap: 10px;
@@ -187,33 +197,11 @@ iframe {
 }
 
 .nav-tabs {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 10px;
-  background-color: rgba(30, 30, 30, 0.7);
-  border-radius: 4px;
-  padding: 5px;
+  display: none;
 }
 
 .tab-button {
-  padding: 8px 15px;
-  background-color: rgba(60, 60, 60, 0.5);
-  color: #ccc;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.tab-button.active {
-  background-color: rgba(100, 100, 100, 0.8);
-  color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 200, 0.3);
-}
-
-.tab-content {
   display: none;
-  height: 100%;
 }
 
 .tab-content.active {

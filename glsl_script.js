@@ -1,32 +1,31 @@
 let codeVisible = true;
-let vertexEditor, fragmentEditor;
+let fragmentEditor;
 let gl;
 let program;
 let startTime;
 let animationFrameId;
 
+// 全画面描画用の頂点配列
+const fullscreenVertices = new Float32Array([
+  -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0,
+]);
+
+// 全画面描画用のシェーダーコード
+const fullscreenVertexShaderSource = `
+attribute vec2 a_position;
+void main() {
+  gl_Position = vec4(a_position, 0, 1);
+}`;
+
 // Initialize when page loads
 window.onload = function () {
-  initCodeEditors();
-  setupTabs();
+  initCodeEditor();
   initWebGL();
-  runShaders();
+  runShader();
 };
 
-// Initialize CodeMirror editors for vertex and fragment shaders
-function initCodeEditors() {
-  const vertexTextArea = document.getElementById("vertexCode");
-  vertexEditor = CodeMirror.fromTextArea(vertexTextArea, {
-    mode: "x-shader/x-vertex",
-    theme: "dracula",
-    lineNumbers: true,
-    lineWrapping: true,
-    indentUnit: 2,
-    tabSize: 2,
-    autoCloseBrackets: true,
-    matchBrackets: true,
-  });
-
+// Initialize CodeMirror editor for fragment shader
+function initCodeEditor() {
   const fragmentTextArea = document.getElementById("fragmentCode");
   fragmentEditor = CodeMirror.fromTextArea(fragmentTextArea, {
     mode: "x-shader/x-fragment",
@@ -40,49 +39,22 @@ function initCodeEditors() {
   });
 }
 
-// Setup tab functionality
-function setupTabs() {
-  const tabButtons = document.querySelectorAll(".tab-button");
-  const tabContents = document.querySelectorAll(".tab-content");
-
-  tabButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      // Remove active class from all buttons and contents
-      tabButtons.forEach((btn) => btn.classList.remove("active"));
-      tabContents.forEach((content) => content.classList.remove("active"));
-
-      // Add active class to clicked button and corresponding content
-      button.classList.add("active");
-      const tabId = button.getAttribute("data-tab");
-      document.getElementById(tabId).classList.add("active");
-
-      // Refresh the editors to fix sizing issues after tab switch
-      vertexEditor.refresh();
-      fragmentEditor.refresh();
-    });
-  });
-}
-
 // Toggle visibility of the code editor
 function toggleCode() {
   const codeContainer = document.getElementById("codeContainer");
   const controlPanel = document.getElementById("controlPanel");
-  const tabContainer = document.querySelector(".nav-tabs");
   const toggleButton = document.querySelector(".buttons button:nth-child(2)");
 
   codeVisible = !codeVisible;
 
   if (codeVisible) {
     codeContainer.style.display = "block";
-    tabContainer.style.display = "flex";
     controlPanel.style.background = "transparent";
     controlPanel.style.padding = "20px";
     toggleButton.textContent = "Hide Editor";
-    vertexEditor.refresh();
     fragmentEditor.refresh();
   } else {
     codeContainer.style.display = "none";
-    tabContainer.style.display = "none";
     controlPanel.style.background = "transparent";
     controlPanel.style.padding = "10px";
     toggleButton.textContent = "Show Editor";
@@ -104,13 +76,9 @@ function initWebGL() {
   }
 
   // Create a fullscreen quad
-  const vertices = new Float32Array([
-    -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0,
-  ]);
-
   const vertexBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+  gl.bufferData(gl.ARRAY_BUFFER, fullscreenVertices, gl.STATIC_DRAW);
 
   // Set initial time
   startTime = Date.now();
@@ -130,20 +98,24 @@ function compileShader(source, type) {
   return shader;
 }
 
-// Run the shaders
-function runShaders() {
+// Run the shader
+function runShader() {
   // Cancel any existing animation loop
   if (animationFrameId) {
     cancelAnimationFrame(animationFrameId);
   }
 
   try {
-    // Get shader code from editors
-    const vertexShaderSource = vertexEditor.getValue();
+    // フラグメントシェーダーのコードを取得
     const fragmentShaderSource = fragmentEditor.getValue();
 
-    // Compile shaders
-    const vertexShader = compileShader(vertexShaderSource, gl.VERTEX_SHADER);
+    // 内部で使用する頂点シェーダーをコンパイル（表示しない）
+    const vertexShader = compileShader(
+      fullscreenVertexShaderSource,
+      gl.VERTEX_SHADER
+    );
+
+    // フラグメントシェーダーをコンパイル
     const fragmentShader = compileShader(
       fragmentShaderSource,
       gl.FRAGMENT_SHADER
