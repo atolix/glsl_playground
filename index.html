@@ -58,95 +58,33 @@
     <div class="control-panel" id="controlPanel">
       <div id="codeContainer" class="code-container">
         <div id="fragmentShader" class="tab-content active">
-          <textarea id="fragmentCode">// This shader automatically adapts to WebGL1/WebGL2
-// For WebGL2, #version 300 es will be automatically added at the beginning
+          <textarea id="fragmentCode">// Simple GLSL Shader Example
+// Compatible with both WebGL 1.0 and 2.0
 
-// Shader variables
-uniform vec2 u_resolution;
-uniform float u_time;
+// Shader input uniforms
+uniform vec2 u_resolution;  // Canvas dimensions
+uniform float u_time;       // Time elapsed in seconds
 
-// Output variable for WebGL2
-// In WebGL2, out vec4 outColor; is used
-// In WebGL1, gl_FragColor is used
+// Output color (for WebGL 2.0)
 out vec4 outColor;
 
-// Simple random function
-float random(vec2 st) {
-    return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
-}
-
-// Simple noise function
-float noise(vec2 st) {
-    vec2 i = floor(st);
-    vec2 f = fract(st);
-
-    // Four corners in 2D of a tile
-    float a = random(i);
-    float b = random(i + vec2(1.0, 0.0));
-    float c = random(i + vec2(0.0, 1.0));
-    float d = random(i + vec2(1.0, 1.0));
-
-    // Smooth interpolation
-    vec2 u = f * f * (3.0 - 2.0 * f);
-
-    // Mix 4 corners
-    return mix(a, b, u.x) +
-            (c - a)* u.y * (1.0 - u.x) +
-            (d - b) * u.x * u.y;
-}
-
-// Simplified FBM
-float fbm(vec2 st) {
-    float value = 0.0;
-    float amplitude = 0.5;
-    float frequency = 1.0;
-
-    // Add octaves
-    for (int i = 0; i < 5; i++) {
-        value += amplitude * noise(st * frequency);
-        frequency *= 2.0;
-        amplitude *= 0.5;
-    }
-
-    return value;
-}
-
 void main() {
-    // Normalized coordinates
+    // Normalized coordinates (0.0 to 1.0)
     vec2 uv = gl_FragCoord.xy / u_resolution.xy;
 
-    // Adjust aspect ratio
-    uv.x *= u_resolution.x / u_resolution.y;
+    // Create a gradient based on position
+    vec3 color = vec3(0.0);
 
-    // Create faster movement
-    vec2 moving_uv = uv + vec2(sin(u_time * 0.25) * 0.1, cos(u_time * 0.3) * 0.1);
+    // Red increases from left to right
+    color.r = uv.x;
 
-    // Generate noise patterns with faster movement
-    float n1 = fbm(moving_uv * 3.0 + u_time * 0.1);
-    float n2 = fbm(moving_uv * 5.0 + n1 * 2.0 + u_time * 0.05);
+    // Green increases from bottom to top
+    color.g = uv.y;
 
-    // Create cool color palette
-    vec3 color1 = vec3(0.1, 0.3, 0.9);   // Deep blue
-    vec3 color2 = vec3(0.2, 0.7, 0.9);   // Cyan/Light blue
-    vec3 color3 = vec3(0.4, 0.2, 0.8);   // Purple
+    // Blue oscillates based on time
+    color.b = abs(sin(u_time));
 
-    // Mix colors based on noise
-    vec3 color = mix(vec3(0.1, 0.1, 0.3), color1, n1);
-    color = mix(color, color2, n2);
-
-    // Simple gradient from bottom to top
-    float gradient = smoothstep(0.0, 1.0, uv.y);
-    color = mix(color, color3, gradient * 0.7);
-
-    // Add faster wave effect
-    float wave = sin(uv.x * 15.0 + u_time * 2.0) * 0.03;
-    color += wave * vec3(0.0, 0.5, 1.0);
-
-    // Faster pulsing effect
-    float pulse = 1.0 + 0.1 * sin(u_time * 0.8);
-    color *= pulse;
-
-    // Output color
+    // Set the output color
     outColor = vec4(color, 1.0);
 }
           </textarea>
