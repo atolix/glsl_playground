@@ -1,0 +1,280 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #000;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.code-container {
+  margin-bottom: 10px;
+  transition: height 0.3s ease;
+  height: 80vh;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+button {
+  padding: 0.5em 1em;
+  font-size: 16px;
+  background-color: rgba(60, 60, 60, 0.7);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+  background-color: rgba(80, 80, 80, 0.9);
+}
+
+iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  z-index: 0;
+}
+
+.control-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: transparent;
+  padding: 20px;
+  width: calc(100vw - 40px);
+  height: calc(100vh - 40px);
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+/* CodeMirror custom */
+.CodeMirror {
+  height: 100%;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  color: #fff;
+  border: none;
+  resize: none;
+  outline: none;
+  padding: 10px;
+}
+
+.CodeMirror-gutters {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.CodeMirror-linenumber {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.cm-s-github-dark.CodeMirror {
+  background-color: transparent !important;
+  color: #ffffff;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+.cm-s-github-dark .CodeMirror-gutters {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border-right: 1px solid rgba(110, 118, 129, 0.3);
+}
+
+.cm-s-github-dark .CodeMirror-linenumber {
+  color: rgba(139, 148, 158, 0.8);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+.cm-s-github-dark .cm-keyword {
+  color: #ff7b72;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.cm-s-github-dark .cm-def {
+  color: #79c0ff;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.cm-s-github-dark .cm-variable {
+  color: #e6edf3;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.cm-s-github-dark .cm-variable-2 {
+  color: #e6edf3;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.cm-s-github-dark .cm-property {
+  color: #79c0ff;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.cm-s-github-dark .cm-string {
+  color: #a5d6ff;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.cm-s-github-dark .cm-string-2 {
+  color: #a5d6ff;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.cm-s-github-dark .cm-comment {
+  color: #a5a5a5;
+  font-style: italic;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.cm-s-github-dark .cm-number {
+  color: #79c0ff;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.cm-s-github-dark .cm-operator {
+  color: #ff7b72;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.cm-s-github-dark .cm-meta {
+  color: #7d8590;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+}
+
+.cm-s-github-dark .CodeMirror-cursor {
+  border-left: 2px solid #c9d1d9;
+}
+
+.cm-s-github-dark .CodeMirror-selected {
+  background: rgba(56, 139, 253, 0.2);
+}
+
+/* GLSL Playground Specific Styles */
+#glCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+#glCanvas canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+  background-color: rgba(30, 30, 30, 0.7);
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.tab-button {
+  padding: 8px 15px;
+  background-color: rgba(60, 60, 60, 0.5);
+  color: #ccc;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-button.active {
+  background-color: rgba(100, 100, 100, 0.8);
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 200, 0.3);
+}
+
+.tab-content {
+  display: none;
+  height: 100%;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.nav-link {
+  padding: 0.5em 1em;
+  font-size: 16px;
+  background-color: rgba(0, 100, 150, 0.7);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.nav-link:hover {
+  background-color: rgba(0, 120, 180, 0.9);
+}
+
+/* GLSL syntax highlighting */
+.cm-s-dracula .cm-qualifier {
+  color: #50fa7b;
+}
+
+.cm-s-dracula .cm-builtin {
+  color: #8be9fd;
+}
+
+.cm-s-dracula .cm-atom {
+  color: #bd93f9;
+}
+
+.cm-s-dracula .cm-number {
+  color: #f1fa8c;
+}
+
+.cm-s-dracula .cm-def {
+  color: #50fa7b;
+}
+
+.cm-s-dracula .cm-variable {
+  color: #f8f8f2;
+}
+
+.cm-s-dracula .cm-operator {
+  color: #ff79c6;
+}
+
+.cm-s-dracula .cm-comment {
+  color: #6272a4;
+}
+
+.cm-s-dracula .cm-string {
+  color: #f1fa8c;
+}
+
+.cm-s-dracula .cm-keyword {
+  color: #ff79c6;
+}
