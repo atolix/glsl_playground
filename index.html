@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="format-detection" content="telephone=no" />
+
   <title>GLSL Playground</title>
 
   <!-- PWA related settings -->
@@ -21,6 +24,33 @@
   <!-- CodeMirror JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.3/mode/clike/clike.min.js"></script>
+
+  <!-- iOS PWA Keyboard Fix Script -->
+  <script>
+    // iOSのキーボード修正（PWA実行時）
+    document.addEventListener('DOMContentLoaded', function() {
+      // iOS検出
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      if (isIOS) {
+        // iOSのStandalone（PWA）モードかをチェック
+        if (window.navigator.standalone === true) {
+          // フォーカスイベントを設定するための遅延
+          setTimeout(function() {
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(function(input) {
+              input.addEventListener('focus', function() {
+                // POSIXハックでキーボードを表示
+                document.body.style.position = 'relative';
+              });
+              input.addEventListener('blur', function() {
+                document.body.style.position = '';
+              });
+            });
+          }, 300);
+        }
+      }
+    });
+  </script>
 </head>
 <body>
   <div class="container">
