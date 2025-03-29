@@ -76,6 +76,7 @@ function toggleCode() {
     codeContainer.style.display = "block";
     tabContainer.style.display = "flex";
     controlPanel.style.background = "transparent";
+    controlPanel.style.padding = "20px";
     toggleButton.textContent = "Hide Editor";
     vertexEditor.refresh();
     fragmentEditor.refresh();
