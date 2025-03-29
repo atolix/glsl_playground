@@ -4,7 +4,7 @@ An interactive WebGL shader code editor and playground that lets you experiment 
 
 ## Live Demo
 
-Try it now: [https://your-username.github.io/glsl_playground/](https://your-username.github.io/glsl_playground/)
+Try it now: [https://atolix.github.io/glsl_playground/](https://atolix.github.io/glsl_playground/)
 
 ## Features
 
