@@ -16,10 +16,10 @@ body {
   margin-bottom: 10px;
   transition: height 0.3s ease;
   height: 80vh;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  backdrop-filter: blur(0.8px);
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: none;
+  box-shadow: none;
 }
 
 .editor-title {
@@ -30,7 +30,7 @@ body {
   background-color: rgba(40, 40, 40, 0.15);
   padding: 8px 12px;
   border-radius: 4px;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+  text-shadow: none;
 }
 
 .buttons {
@@ -50,20 +50,20 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
   transition: all 0.2s ease;
-  backdrop-filter: blur(2px);
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+  backdrop-filter: none;
+  text-shadow: none;
 }
 
 button:hover {
   background-color: rgba(60, 60, 60, 0.7);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
 }
 
 button:active {
   transform: translateY(1px);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
 }
 
 iframe {
@@ -103,7 +103,7 @@ iframe {
   resize: none;
   outline: none;
   padding: 10px;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
   border-radius: 4px;
 }
 
@@ -115,87 +115,87 @@ iframe {
 
 .CodeMirror-linenumber {
   color: rgba(255, 255, 255, 0.5);
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+  text-shadow: none;
 }
 
 .cm-s-github-dark.CodeMirror {
   background-color: transparent !important;
   color: #ffffff;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .CodeMirror-gutters {
   background-color: transparent !important;
-  border-right: 1px solid rgba(110, 118, 129, 0.1);
+  border-right: 1px solid rgba(110, 118, 129, 0.06);
 }
 
 .cm-s-github-dark .CodeMirror-linenumber {
   color: rgba(139, 148, 158, 0.5);
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .cm-keyword {
   color: #ff7b72;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .cm-def {
   color: #79c0ff;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .cm-variable {
   color: #e6edf3;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .cm-variable-2 {
   color: #e6edf3;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .cm-property {
   color: #79c0ff;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .cm-string {
   color: #a5d6ff;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .cm-string-2 {
   color: #a5d6ff;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .cm-comment {
   color: #a5a5a5;
   font-style: italic;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .cm-number {
   color: #79c0ff;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .cm-operator {
   color: #ff7b72;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .cm-meta {
   color: #7d8590;
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
 }
 
 .cm-s-github-dark .CodeMirror-cursor {
-  border-left: 2px solid #c9d1d9;
+  border-left: 1px solid rgba(201, 209, 217, 0.8);
 }
 
 .cm-s-github-dark .CodeMirror-selected {
-  background: rgba(56, 139, 253, 0.2);
+  background: rgba(56, 139, 253, 0.1);
 }
 
 /* GLSL Playground Specific Styles */
@@ -248,56 +248,56 @@ iframe {
   background-color: rgba(0, 120, 180, 0.9);
 }
 
-/* GLSL syntax highlighting with enhanced readability */
+/* GLSL syntax highlighting with simplified style */
 .cm-s-dracula .cm-qualifier {
   color: #50fa7b;
-  text-shadow: 0 0 5px rgba(80, 250, 123, 0.5);
+  text-shadow: none;
 }
 
 .cm-s-dracula .cm-builtin {
   color: #8be9fd;
-  text-shadow: 0 0 5px rgba(139, 233, 253, 0.5);
+  text-shadow: none;
 }
 
 .cm-s-dracula .cm-atom {
   color: #bd93f9;
-  text-shadow: 0 0 5px rgba(189, 147, 249, 0.5);
+  text-shadow: none;
 }
 
 .cm-s-dracula .cm-number {
   color: #f1fa8c;
-  text-shadow: 0 0 5px rgba(241, 250, 140, 0.5);
+  text-shadow: none;
 }
 
 .cm-s-dracula .cm-def {
   color: #50fa7b;
-  text-shadow: 0 0 5px rgba(80, 250, 123, 0.5);
+  text-shadow: none;
 }
 
 .cm-s-dracula .cm-variable {
   color: #f8f8f2;
-  text-shadow: 0 0 5px rgba(248, 248, 242, 0.5);
+  text-shadow: none;
 }
 
 .cm-s-dracula .cm-operator {
   color: #ff79c6;
-  text-shadow: 0 0 5px rgba(255, 121, 198, 0.5);
+  text-shadow: none;
 }
 
 .cm-s-dracula .cm-comment {
   color: #6272a4;
-  text-shadow: 0 0 5px rgba(98, 114, 164, 0.5);
+  text-shadow: none;
   font-style: italic;
 }
 
 .cm-s-dracula .cm-string {
   color: #f1fa8c;
-  text-shadow: 0 0 5px rgba(241, 250, 140, 0.5);
+  text-shadow: none;
 }
 
 .cm-s-dracula .cm-keyword {
   color: #ff79c6;
-  text-shadow: 0 0 5px rgba(255, 121, 198, 0.5);
+  text-shadow: none;
   font-weight: bold;
 }
 
@@ -305,7 +305,7 @@ iframe {
 .cm-s-dracula.CodeMirror {
   background-color: transparent !important;
   backdrop-filter: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 }
 
 /* カスタムスクロールバー */
@@ -314,22 +314,20 @@ iframe {
 }
 
 .CodeMirror-vscrollbar::-webkit-scrollbar, .CodeMirror-hscrollbar::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 .CodeMirror-vscrollbar::-webkit-scrollbar-track, .CodeMirror-hscrollbar::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .CodeMirror-vscrollbar::-webkit-scrollbar-thumb, .CodeMirror-hscrollbar::-webkit-scrollbar-thumb {
-  background: rgba(100, 100, 100, 0.3);
-  border-radius: 4px;
+  background: rgba(100, 100, 100, 0.2);
 }
 
 .CodeMirror-vscrollbar::-webkit-scrollbar-thumb:hover, .CodeMirror-hscrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 100, 100, 0.5);
+  background: rgba(100, 100, 100, 0.3);
 }
 
 .cm-s-dracula .CodeMirror-gutters {
@@ -340,19 +338,29 @@ iframe {
 
 .cm-s-dracula .CodeMirror-linenumber {
   color: rgba(98, 114, 164, 0.6);
-  text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+  text-shadow: none;
 }
 
 /* 行番号がアクティブな行の強調表示 */
 .CodeMirror-activeline-gutter {
-  background-color: rgba(80, 250, 123, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.03) !important;
 }
 
 /* 選択範囲のスタイルを調整 */
 .CodeMirror-selected {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
 }
 
 .cm-s-dracula .CodeMirror-selected {
-  background: rgba(68, 71, 90, 0.4) !important;
+  background: rgba(68, 71, 90, 0.2) !important;
+}
+
+/* カーソル色の調整 */
+.CodeMirror-cursor {
+  border-left: 1px solid rgba(255, 255, 255, 0.8) !important;
+}
+
+/* 行全体の強調表示を簡素化 */
+.CodeMirror-activeline-background {
+  background: rgba(255, 255, 255, 0.02) !important;
 }
