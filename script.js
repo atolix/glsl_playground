@@ -18,8 +18,28 @@ window.onload = function () {
   initWebGL();
   updatePlayButton();
 
-  // iOS PWA キーボード対策: タップイベントを追加
-  document.addEventListener("click", handleTapForKeyboard);
+  // iOS PWA キーボード対策: タップイベントを追加（遅延実行）
+  setTimeout(() => {
+    document.addEventListener("click", handleTapForKeyboard);
+
+    // エディタ領域に直接クリックイベントを追加
+    const editorElement = document.querySelector(".CodeMirror");
+    if (editorElement) {
+      editorElement.addEventListener(
+        "touchend",
+        function (e) {
+          setTimeout(() => {
+            fragmentEditor.focus();
+            const textarea = fragmentEditor.getInputField();
+            textarea.focus();
+            // 仮想キーボードを強制的に表示
+            textarea.click();
+          }, 50);
+        },
+        false
+      );
+    }
+  }, 1000);
 };
 
 // iOSのPWAでキーボードを表示させるためのハンドラー
@@ -29,16 +49,24 @@ function handleTapForKeyboard(e) {
   if (editorElement && editorElement.contains(e.target)) {
     if (fragmentEditor) {
       // フォーカスを強制的に設定
-      setTimeout(() => {
-        fragmentEditor.focus();
+      fragmentEditor.focus();
 
-        // iOS 13+用の追加対策
-        if (navigator.standalone) {
-          const textarea = document.querySelector(".CodeMirror textarea");
-          if (textarea) {
-            textarea.readOnly = false;
-            textarea.focus();
-          }
+      // iOS PWA対策を強化
+      const textarea = fragmentEditor.getInputField();
+      textarea.readOnly = false;
+      textarea.setAttribute("readonly", false);
+      textarea.setAttribute("inputmode", "text");
+
+      // フォーカスを遅延設定（iOS対策）
+      setTimeout(() => {
+        textarea.focus();
+        // モバイルブラウザでキーボードを表示させるため、もう一度クリックイベントを発生
+        textarea.click();
+
+        // 選択範囲をクリアしてカーソルだけを表示
+        if (textarea.setSelectionRange) {
+          const len = textarea.value.length;
+          textarea.setSelectionRange(len, len);
         }
       }, 100);
     }
@@ -48,6 +76,15 @@ function handleTapForKeyboard(e) {
 // Initialize CodeMirror editor for fragment shader
 function initCodeEditor() {
   const fragmentTextArea = document.getElementById("fragmentCode");
+
+  // iOSのPWA対策として、textareaの属性を先に設定
+  fragmentTextArea.setAttribute("inputmode", "text");
+  fragmentTextArea.setAttribute("autocomplete", "off");
+  fragmentTextArea.setAttribute("autocorrect", "off");
+  fragmentTextArea.setAttribute("autocapitalize", "off");
+  fragmentTextArea.setAttribute("spellcheck", "false");
+  fragmentTextArea.style.fontSize = "16px"; // iOS自動ズーム防止に16px以上のフォントサイズが必要
+
   fragmentEditor = CodeMirror.fromTextArea(fragmentTextArea, {
     mode: "x-shader/x-fragment",
     theme: "custom-github-dark", // Using custom GitHub Dark theme
@@ -59,10 +96,24 @@ function initCodeEditor() {
     matchBrackets: true,
     readOnly: false, // 編集可能に設定
     inputStyle: "contenteditable", // iOSでのキーボード表示に有効
+    viewportMargin: Infinity, // エディタの高さを自動調整
+    autofocus: true, // 自動フォーカス
   });
 
-  // iOS PWAでのキーボード表示問題対策のため追加
-  fragmentEditor.getInputField().setAttribute("inputmode", "text");
+  // iOS PWAキーボード表示対策を追加
+  const cmInput = fragmentEditor.getInputField();
+  cmInput.setAttribute("inputmode", "text");
+  cmInput.setAttribute("autocomplete", "off");
+  cmInput.setAttribute("autocorrect", "off");
+  cmInput.setAttribute("autocapitalize", "off");
+  cmInput.setAttribute("spellcheck", "false");
+  cmInput.style.fontSize = "16px"; // iOS自動ズーム防止
+
+  // エディタがレンダリングされた後に再度フォーカスをセット
+  setTimeout(() => {
+    fragmentEditor.refresh();
+    fragmentEditor.focus();
+  }, 500);
 }
 
 // Toggle visibility of the code editor
