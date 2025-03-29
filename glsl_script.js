@@ -31,7 +31,7 @@ function initCodeEditor() {
   const fragmentTextArea = document.getElementById("fragmentCode");
   fragmentEditor = CodeMirror.fromTextArea(fragmentTextArea, {
     mode: "x-shader/x-fragment",
-    theme: "dracula",
+    theme: "custom-github-dark", // ドラキュラの代わりにカスタムテーマを適用
     lineNumbers: true,
     lineWrapping: true,
     indentUnit: 2,
