@@ -17,7 +17,33 @@ window.onload = function () {
   initCodeEditor();
   initWebGL();
   updatePlayButton();
+
+  // iOS PWA キーボード対策: タップイベントを追加
+  document.addEventListener("click", handleTapForKeyboard);
 };
+
+// iOSのPWAでキーボードを表示させるためのハンドラー
+function handleTapForKeyboard(e) {
+  // CodeMirrorエディタ領域がクリックされたかを確認
+  const editorElement = document.querySelector(".CodeMirror");
+  if (editorElement && editorElement.contains(e.target)) {
+    if (fragmentEditor) {
+      // フォーカスを強制的に設定
+      setTimeout(() => {
+        fragmentEditor.focus();
+
+        // iOS 13+用の追加対策
+        if (navigator.standalone) {
+          const textarea = document.querySelector(".CodeMirror textarea");
+          if (textarea) {
+            textarea.readOnly = false;
+            textarea.focus();
+          }
+        }
+      }, 100);
+    }
+  }
+}
 
 // Initialize CodeMirror editor for fragment shader
 function initCodeEditor() {
@@ -31,7 +57,12 @@ function initCodeEditor() {
     tabSize: 2,
     autoCloseBrackets: true,
     matchBrackets: true,
+    readOnly: false, // 編集可能に設定
+    inputStyle: "contenteditable", // iOSでのキーボード表示に有効
   });
+
+  // iOS PWAでのキーボード表示問題対策のため追加
+  fragmentEditor.getInputField().setAttribute("inputmode", "text");
 }
 
 // Toggle visibility of the code editor
