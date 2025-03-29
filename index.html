@@ -27,53 +27,30 @@
       <div id="codeContainer" class="code-container">
         <div id="fragmentShader" class="tab-content active">
           <textarea id="fragmentCode">
-// フラグメントシェーダー
+// シンプルなフラグメントシェーダー
 precision mediump float;
 
+// ユニフォーム変数
 uniform vec2 u_resolution;  // キャンバスサイズ
 uniform float u_time;       // 時間（秒）
 
 void main() {
-  // 正規化座標（0.0～1.0）
+  // 正規化された座標（0.0～1.0）
   vec2 uv = gl_FragCoord.xy / u_resolution;
 
-  // 中心からの距離
-  vec2 center = vec2(0.5, 0.5);
-  float dist = length(uv - center);
+  // 波紋のアニメーション
+  float distance = length(uv - 0.5);  // 中心からの距離
+  float wave = sin(distance * 10.0 - u_time * 3.0) * 0.5 + 0.5;
 
-  // 同心円パターン
-  float rings = sin(dist * 15.0 - u_time * 2.0) * 0.5 + 0.5;
-
-  // 色相の計算
-  float hue = fract(dist * 2.0 + u_time * 0.1);
-
-  // HSVからRGBへの変換
+  // 色の設定
   vec3 color = vec3(0.0);
 
-  // 色相から RGB への簡易変換
-  vec3 c = vec3(hue, 1.0, rings);
-  float h = c.x * 6.0;
-  float i = floor(h);
-  float f = h - i;
-  vec3 rgb;
+  // 時間で変化する色
+  color.r = wave;
+  color.g = sin(u_time) * 0.5 + 0.5;
+  color.b = cos(u_time) * 0.5 + 0.5;
 
-  if (i == 0.0) {
-    rgb = vec3(1.0, f, 0.0);
-  } else if (i == 1.0) {
-    rgb = vec3(1.0 - f, 1.0, 0.0);
-  } else if (i == 2.0) {
-    rgb = vec3(0.0, 1.0, f);
-  } else if (i == 3.0) {
-    rgb = vec3(0.0, 1.0 - f, 1.0);
-  } else if (i == 4.0) {
-    rgb = vec3(f, 0.0, 1.0);
-  } else {
-    rgb = vec3(1.0, 0.0, 1.0 - f);
-  }
-
-  color = rgb * c.z;
-
-  // 出力色
+  // 最終的な色を出力
   gl_FragColor = vec4(color, 1.0);
 }
           </textarea>
