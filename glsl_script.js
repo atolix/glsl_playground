@@ -4,6 +4,8 @@ let gl;
 let program;
 let startTime;
 let animationFrameId;
+let isPlaying = false; // シェーダーが実行中かどうかのフラグ
+let pausedTime = 0; // 一時停止時の経過時間を保存
 
 // 全画面描画用の頂点配列
 const fullscreenVertices = new Float32Array([
@@ -21,7 +23,7 @@ void main() {
 window.onload = function () {
   initCodeEditor();
   initWebGL();
-  runShader();
+  updatePlayButton();
 };
 
 // Initialize CodeMirror editor for fragment shader
@@ -98,9 +100,36 @@ function compileShader(source, type) {
   return shader;
 }
 
+// シェーダーの実行/停止を切り替える
+function toggleShader() {
+  if (isPlaying) {
+    stopShader();
+  } else {
+    runShader();
+  }
+  updatePlayButton();
+}
+
+// 再生/停止ボタンの表示を更新
+function updatePlayButton() {
+  const playButton = document.querySelector(".buttons button:nth-child(1)");
+  playButton.textContent = isPlaying ? "Stop" : "Play";
+}
+
+// シェーダーを停止
+function stopShader() {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
+  // 停止時の経過時間を記録
+  pausedTime = (Date.now() - startTime) / 1000;
+  isPlaying = false;
+}
+
 // Run the shader
 function runShader() {
-  // Cancel any existing animation loop
+  // 既に実行中のアニメーションをキャンセル
   if (animationFrameId) {
     cancelAnimationFrame(animationFrameId);
   }
@@ -147,6 +176,13 @@ function runShader() {
     gl.enableVertexAttribArray(positionLocation);
     gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
 
+    // 再開する場合は保存した時間を使用
+    if (pausedTime > 0) {
+      startTime = Date.now() - pausedTime * 1000;
+    } else {
+      startTime = Date.now();
+    }
+
     // Animation loop
     function render() {
       // Set viewport
@@ -170,9 +206,12 @@ function runShader() {
 
     // Start animation loop
     render();
+    isPlaying = true;
   } catch (error) {
     console.error(error);
     alert("Shader Error: " + error.message);
+    isPlaying = false;
+    updatePlayButton();
   }
 }
 
