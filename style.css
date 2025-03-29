@@ -16,6 +16,10 @@ body {
   margin-bottom: 10px;
   transition: height 0.3s ease;
   height: 80vh;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  backdrop-filter: blur(0.8px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
 }
 
 .editor-title {
@@ -23,9 +27,10 @@ body {
   margin: 0 0 10px 0;
   font-size: 18px;
   font-weight: normal;
-  background-color: rgba(40, 40, 40, 0.7);
+  background-color: rgba(40, 40, 40, 0.15);
   padding: 8px 12px;
   border-radius: 4px;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
 }
 
 .buttons {
@@ -38,18 +43,27 @@ body {
 }
 
 button {
-  padding: 0.5em 1em;
+  padding: 0.6em 1.2em;
   font-size: 16px;
-  background-color: rgba(60, 60, 60, 0.7);
+  background-color: rgba(30, 30, 30, 0.5);
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  backdrop-filter: blur(2px);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
 }
 
 button:hover {
-  background-color: rgba(80, 80, 80, 0.9);
+  background-color: rgba(60, 60, 60, 0.7);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 iframe {
@@ -83,21 +97,25 @@ iframe {
 .CodeMirror {
   height: 100%;
   font-size: 14px;
-  background-color: rgba(0, 0, 0, 0.3) !important;
+  background-color: transparent !important;
   color: #fff;
   border: none;
   resize: none;
   outline: none;
   padding: 10px;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
+  border-radius: 4px;
 }
 
 .CodeMirror-gutters {
-  background-color: rgba(0, 0, 0, 0.2) !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: transparent !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+  padding-right: 5px;
 }
 
 .CodeMirror-linenumber {
   color: rgba(255, 255, 255, 0.5);
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
 }
 
 .cm-s-github-dark.CodeMirror {
@@ -107,13 +125,13 @@ iframe {
 }
 
 .cm-s-github-dark .CodeMirror-gutters {
-  background-color: rgba(0, 0, 0, 0.3) !important;
-  border-right: 1px solid rgba(110, 118, 129, 0.3);
+  background-color: transparent !important;
+  border-right: 1px solid rgba(110, 118, 129, 0.1);
 }
 
 .cm-s-github-dark .CodeMirror-linenumber {
-  color: rgba(139, 148, 158, 0.8);
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+  color: rgba(139, 148, 158, 0.5);
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
 }
 
 .cm-s-github-dark .cm-keyword {
@@ -206,6 +224,10 @@ iframe {
 
 .tab-content.active {
   display: block;
+  background-color: transparent;
+  height: calc(100% - 50px); /* タイトル分の高さを引く */
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .nav-link {
@@ -226,43 +248,111 @@ iframe {
   background-color: rgba(0, 120, 180, 0.9);
 }
 
-/* GLSL syntax highlighting */
+/* GLSL syntax highlighting with enhanced readability */
 .cm-s-dracula .cm-qualifier {
   color: #50fa7b;
+  text-shadow: 0 0 5px rgba(80, 250, 123, 0.5);
 }
 
 .cm-s-dracula .cm-builtin {
   color: #8be9fd;
+  text-shadow: 0 0 5px rgba(139, 233, 253, 0.5);
 }
 
 .cm-s-dracula .cm-atom {
   color: #bd93f9;
+  text-shadow: 0 0 5px rgba(189, 147, 249, 0.5);
 }
 
 .cm-s-dracula .cm-number {
   color: #f1fa8c;
+  text-shadow: 0 0 5px rgba(241, 250, 140, 0.5);
 }
 
 .cm-s-dracula .cm-def {
   color: #50fa7b;
+  text-shadow: 0 0 5px rgba(80, 250, 123, 0.5);
 }
 
 .cm-s-dracula .cm-variable {
   color: #f8f8f2;
+  text-shadow: 0 0 5px rgba(248, 248, 242, 0.5);
 }
 
 .cm-s-dracula .cm-operator {
   color: #ff79c6;
+  text-shadow: 0 0 5px rgba(255, 121, 198, 0.5);
 }
 
 .cm-s-dracula .cm-comment {
   color: #6272a4;
+  text-shadow: 0 0 5px rgba(98, 114, 164, 0.5);
+  font-style: italic;
 }
 
 .cm-s-dracula .cm-string {
   color: #f1fa8c;
+  text-shadow: 0 0 5px rgba(241, 250, 140, 0.5);
 }
 
 .cm-s-dracula .cm-keyword {
   color: #ff79c6;
+  text-shadow: 0 0 5px rgba(255, 121, 198, 0.5);
+  font-weight: bold;
+}
+
+/* CodeMirror specific settings for making it semi-transparent */
+.cm-s-dracula.CodeMirror {
+  background-color: transparent !important;
+  backdrop-filter: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* カスタムスクロールバー */
+.CodeMirror-vscrollbar, .CodeMirror-hscrollbar {
+  background-color: transparent !important;
+}
+
+.CodeMirror-vscrollbar::-webkit-scrollbar, .CodeMirror-hscrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.CodeMirror-vscrollbar::-webkit-scrollbar-track, .CodeMirror-hscrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.CodeMirror-vscrollbar::-webkit-scrollbar-thumb, .CodeMirror-hscrollbar::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.3);
+  border-radius: 4px;
+}
+
+.CodeMirror-vscrollbar::-webkit-scrollbar-thumb:hover, .CodeMirror-hscrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.5);
+}
+
+.cm-s-dracula .CodeMirror-gutters {
+  background-color: transparent !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+  padding-right: 5px;
+}
+
+.cm-s-dracula .CodeMirror-linenumber {
+  color: rgba(98, 114, 164, 0.6);
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+}
+
+/* 行番号がアクティブな行の強調表示 */
+.CodeMirror-activeline-gutter {
+  background-color: rgba(80, 250, 123, 0.05) !important;
+}
+
+/* 選択範囲のスタイルを調整 */
+.CodeMirror-selected {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.cm-s-dracula .CodeMirror-selected {
+  background: rgba(68, 71, 90, 0.4) !important;
 }
