@@ -43,7 +43,7 @@ float random (in float x) {
 }
 
 float random (in vec2 st) {
-    return fract(sin(dot(st.xy, vec2(5.9898,38.233)))* 43758.5453123);
+    return fract(sin(dot(st.xy, vec2(12.9898,78.233)))* 43758.5453123);
 }
 
 float value_noise (in vec2 st) {
@@ -62,14 +62,18 @@ float value_noise (in vec2 st) {
             (d - b) * u.x * u.y;
 }
 
+// Improved FBM with rotation and movement
 #define NUM_OCTAVES 8
-float fbm ( in vec2 _st) {
+float fbm (in vec2 _st, in float _time) {
     float v = 0.0;
     float a = 0.5;
     vec2 shift = vec2(100.0);
 
-    mat2 rot = mat2(cos(0.5), sin(0.5),
-                    -sin(0.5), cos(0.50));
+    // Animate rotation angle based on time
+    float angle = 0.5 + 0.1 * sin(_time * 0.1);
+    mat2 rot = mat2(cos(angle), sin(angle),
+                   -sin(angle), cos(angle));
+
     for (int i = 0; i < NUM_OCTAVES; ++i) {
         v += a * value_noise(_st);
         _st = rot * _st * 2.0 + shift;
@@ -80,31 +84,46 @@ float fbm ( in vec2 _st) {
 
 void main(){
     vec2 uv = gl_FragCoord.xy / u_resolution;
+
+    // Adjust aspect ratio
     uv.x *= u_resolution.x / u_resolution.y;
 
+    // Add some subtle movement to base coordinates
+    vec2 moving_uv = uv + vec2(sin(u_time * 0.1) * 0.1, cos(u_time * 0.04) * 0.1);
+
     vec3 color = vec3(0.0);
+
+    // Initialize pattern coordinates
     vec2 q = vec2(0.);
-    q.x = fbm(uv + 0.0 * u_time);
-    q.y = fbm(uv + vec2(1.0));
+    q.x = fbm(moving_uv + 0.1 * u_time, u_time);
+    q.y = fbm(moving_uv + vec2(1.0), u_time);
 
     vec2 r = vec2(0.);
-    r.x = fbm( uv + 1.0*q + vec2(1.7,1.2)+ 0.15 * u_time );
-    r.y = fbm( uv + 1.0*q + vec2(8.3,2.8)+ 0.126 * u_time);
+    r.x = fbm(moving_uv + 1.0*q + vec2(1.7,1.2) + 0.15 * u_time, u_time);
+    r.y = fbm(moving_uv + 1.0*q + vec2(8.3,2.8) + 0.126 * u_time, u_time);
 
-    float f = fbm(uv+r);
+    // Add a wave-like distortion
+    float wave = sin(uv.x * 10.0 + u_time) * sin(uv.y * 10.0 + u_time) * 0.01;
+    float f = fbm(moving_uv + r + wave, u_time);
 
+    // Keep original color scheme
     color = mix(vec3(1.0, 1.0, 1.0),
-                vec3(1.0, 0.1333, 0.8275),
+                vec3(1.0, 0.1333, 0.8275),  // Pink
                 clamp((f*f)*4.0,0.0,1.0));
 
     color = mix(color,
-                vec3(0.9451, 0.7647, 1.0),
+                vec3(0.9451, 0.7647, 1.0),  // Light purple
                 clamp(length(q),0.0,1.0));
 
     color = mix(color,
-                vec3(0.2588, 0.9922, 0.9922),
+                vec3(0.2588, 0.9922, 0.9922),  // Cyan
                 clamp(length(r.x),0.0,1.0));
 
+    // Add subtle pulsing to the final color
+    float pulse = 1.0 + 0.05 * sin(u_time * 0.5);
+    color *= pulse;
+
+    // Final color with original formula
     outColor = vec4((f*f*f+.6*f*f+.5*f)*color,1.0);
 }
           </textarea>
