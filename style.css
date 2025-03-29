@@ -16,7 +16,7 @@ body {
   margin-bottom: 10px;
   transition: height 0.3s ease;
   height: 80vh;
-  background-color: rgba(13, 17, 23, 0.7);
+  background-color: rgba(13, 17, 23, 0.4);
   border-radius: 8px;
   backdrop-filter: none;
   box-shadow: none;
@@ -98,27 +98,27 @@ iframe {
 .CodeMirror {
   height: 100%;
   font-size: 14px;
-  background-color: rgba(13, 17, 23, 0.7) !important;
+  background-color: rgba(13, 17, 23, 0.4) !important;
   color: #e6edf3;
   border: none;
   resize: none;
   outline: none;
   padding: 10px;
-  text-shadow: none;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
   border-radius: 4px;
 }
 
 /* 行番号セクションを表示する */
 .CodeMirror-gutters {
   display: block !important;
-  background-color: rgba(13, 17, 23, 0.7) !important;
-  border-right: 1px solid rgba(110, 118, 129, 0.4);
+  background-color: transparent !important;
+  border-right: 1px solid rgba(110, 118, 129, 0.2);
   padding-right: 5px;
 }
 
 .CodeMirror-linenumber {
   color: rgba(139, 148, 158, 0.8);
-  text-shadow: none;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
 }
 
 /* カーソルと選択範囲 */
@@ -132,29 +132,30 @@ iframe {
 
 /* 行強調表示 */
 .CodeMirror-activeline-gutter {
-  background-color: rgba(110, 118, 129, 0.1) !important;
+  background-color: rgba(110, 118, 129, 0.05) !important;
 }
 
 .CodeMirror-activeline-background {
-  background: rgba(110, 118, 129, 0.1) !important;
+  background: rgba(110, 118, 129, 0.05) !important;
 }
 
 /* カスタムGitHub Darkテーマ */
 .cm-s-custom-github-dark.CodeMirror {
-  background-color: rgba(13, 17, 23, 0.7) !important;
+  background-color: rgba(13, 17, 23, 0.4) !important;
   color: #e6edf3;
   backdrop-filter: none;
   box-shadow: none;
 }
 
 .cm-s-custom-github-dark .CodeMirror-gutters {
-  background-color: rgba(13, 17, 23, 0.7) !important;
-  border-right: 1px solid rgba(110, 118, 129, 0.4);
+  background-color: transparent !important;
+  border-right: 1px solid rgba(110, 118, 129, 0.2);
   padding-right: 5px;
 }
 
 .cm-s-custom-github-dark .CodeMirror-linenumber {
   color: rgba(139, 148, 158, 0.8);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
 }
 
 .cm-s-custom-github-dark .cm-keyword {
@@ -176,6 +177,7 @@ iframe {
 .cm-s-custom-github-dark .cm-comment {
   color: #8b949e; /* コメントを非透明に */
   font-style: italic;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5); /* 微妙な影を追加して視認性向上 */
 }
 
 .cm-s-custom-github-dark .cm-string {
@@ -206,6 +208,20 @@ iframe {
   color: #7d8590;
 }
 
+/* シンタックスハイライトの要素も視認性向上のために影を追加 */
+.cm-s-custom-github-dark .cm-keyword,
+.cm-s-custom-github-dark .cm-def,
+.cm-s-custom-github-dark .cm-variable,
+.cm-s-custom-github-dark .cm-operator,
+.cm-s-custom-github-dark .cm-string,
+.cm-s-custom-github-dark .cm-number,
+.cm-s-custom-github-dark .cm-builtin,
+.cm-s-custom-github-dark .cm-atom,
+.cm-s-custom-github-dark .cm-property,
+.cm-s-custom-github-dark .cm-meta {
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5); /* 微妙な影を追加して視認性向上 */
+}
+
 /* GLSL Playground Specific Styles */
 #glCanvas {
   position: absolute;
@@ -232,7 +248,7 @@ iframe {
 
 .tab-content.active {
   display: block;
-  background-color: rgba(13, 17, 23, 0.7);
+  background-color: rgba(13, 17, 23, 0.4);
   height: calc(100% - 50px);
   border-radius: 4px;
   overflow: hidden;
@@ -259,7 +275,7 @@ iframe {
 
 /* カスタムスクロールバー */
 .CodeMirror-vscrollbar, .CodeMirror-hscrollbar {
-  background-color: rgba(13, 17, 23, 0.7) !important;
+  background-color: rgba(13, 17, 23, 0.4) !important;
 }
 
 .CodeMirror-vscrollbar::-webkit-scrollbar, .CodeMirror-hscrollbar::-webkit-scrollbar {
@@ -268,7 +284,7 @@ iframe {
 }
 
 .CodeMirror-vscrollbar::-webkit-scrollbar-track, .CodeMirror-hscrollbar::-webkit-scrollbar-track {
-  background: rgba(13, 17, 23, 0.7);
+  background: rgba(13, 17, 23, 0.4);
 }
 
 .CodeMirror-vscrollbar::-webkit-scrollbar-thumb, .CodeMirror-hscrollbar::-webkit-scrollbar-thumb {
@@ -280,6 +296,6 @@ iframe {
 }
 
 #fragmentShader {
-  background-color: rgba(13, 17, 23, 0.7); /* 透明度を統一 */
+  background-color: rgba(13, 17, 23, 0.4);
   height: 100%;
 }
