@@ -32,7 +32,7 @@ function initCodeEditor() {
   fragmentEditor = CodeMirror.fromTextArea(fragmentTextArea, {
     mode: "x-shader/x-fragment",
     theme: "custom-github-dark", // ドラキュラの代わりにカスタムテーマを適用
-    lineNumbers: true,
+    lineNumbers: true, // 行番号を表示
     lineWrapping: true,
     indentUnit: 2,
     tabSize: 2,
